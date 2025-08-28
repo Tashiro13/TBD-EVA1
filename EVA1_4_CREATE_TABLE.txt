@@ -1,0 +1,136 @@
+Microsoft Windows [Versión 10.0.26100.4946]
+(c) Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\alex_>symsqlsh
+"symsqlsh" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\Users\alex_>mysqlsh
+MySQL Shell 8.0.43
+
+Copyright (c) 2016, 2025, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 9
+Server version: 8.0.43 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| prueba             |
+| sakila             |
+| sys                |
+| tbd1               |
+| tdb1               |
+| world              |
++--------------------+
+9 rows in set (0.0044 sec)
+ MySQL  localhost:3306 ssl  SQL > use tbd1;
+Default schema set to `tbd1`.
+Fetching global names, object names from `tbd1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd1  SQL > show tables;
++----------------+
+| Tables_in_tbd1 |
++----------------+
+| persona        |
++----------------+
+1 row in set (0.0320 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > show create table persona;
++---------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                    |
++---------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| persona | CREATE TABLE `persona` (
+  `id` int DEFAULT NULL,
+  `nombre` varchar(50) DEFAULT NULL,
+  `apellido` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0420 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table customer (
+                                     -> cust-id,
+                                     ->
+                                     -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-id,' at line 2
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table customer ( cust-id int, cust-name varchar(50), address varchar(100)  ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-id int, cust-name varchar(50), address varchar(100)' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table customer ( cust-id int, cust-name varchar(50), address varchar(100)  ,phone varchar(15));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-id int, cust-name varchar(50), address varchar(100)  ,phone varchar(15))' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table customer ( cust-id int, cust-name varchar(50), address varchar(100)  ,phone varchar(15));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-id int, cust-name varchar(50), address varchar(100)  ,phone varchar(15))' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table customer ( cust_id int, cust_name varchar(50), address varchar(100)  ,phone varchar(15));
+Query OK, 0 rows affected (0.0752 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > drop table customer;
+Query OK, 0 rows affected (0.0541 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table customer ( cust_id int, cust_name varchar(50), address varchar(100)  ,phone varchar(15));
+Query OK, 0 rows affected (0.2575 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > show tables;
++----------------+
+| Tables_in_tbd1 |
++----------------+
+| customer       |
+| persona        |
++----------------+
+2 rows in set (0.0035 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > drop table customer;
+Query OK, 0 rows affected (0.0580 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table customer ( cust_id int not null, cust_name varchar(50) not null, address varchar(100) null  ,phone varchar(15));
+Query OK, 0 rows affected (0.0654 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > desc customer;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| cust_id   | int          | NO   |     | NULL    |       |
+| cust_name | varchar(50)  | NO   |     | NULL    |       |
+| address   | varchar(100) | YES  |     | NULL    |       |
+| phone     | varchar(15)  | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+4 rows in set (0.0045 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > drop table customer;
+Query OK, 0 rows affected (0.0553 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table customer ( cust_id int not null auto_increment, cust_name varchar(50) not null, address varchar(100) null  ,phone varchar(15));
+ERROR: 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table customer ( cust_id int not null auto_increment key, cust_name varchar(50) not null, address varchar(100) null  ,phone varchar(15));
+Query OK, 0 rows affected (0.0756 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > desc customer;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| cust_id   | int          | NO   | PRI | NULL    | auto_increment |
+| cust_name | varchar(50)  | NO   |     | NULL    |                |
+| address   | varchar(100) | YES  |     | NULL    |                |
+| phone     | varchar(15)  | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.0053 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > Create table student ( name varchar not null, Ssn varchar not null, Home_phone varchar null, Address varchar null, Oficce_phone varchar null, Age int not null, Gps decimal(5,2));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null, Ssn varchar not null, Home_phone varchar null, Address varchar null, O' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > Create table student ( name varchar (50) not null, Ssn varchar(20) not null, Home_phone(15) varchar null, Address varchar(50) null, Oficce_phone varchar(15) null, Age int not null, Gps decimal(5,2));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(15) varchar null, Address varchar(50) null, Oficce_phone varchar(15) null, Age ' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > Create table student ( name varchar (50) not null, Ssn varchar(20) not null, Home_phone(15) varchar null, Address varchar(50) null, Oficce_phone varchar(15) null, Age int not null, Gps decimal(5,2) not null);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(15) varchar null, Address varchar(50) null, Oficce_phone varchar(15) null, Age ' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > Create table student ( name varchar (50) not null, Ssn varchar(20) not null, Home_phone varchar(15) null, Address varchar(50) null, Oficce_phone varchar(15) null, Age int not null, Gps decimal(5,2) not null);
+Query OK, 0 rows affected (0.0769 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > desc student;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| name         | varchar(50)  | NO   |     | NULL    |       |
+| Ssn          | varchar(20)  | NO   |     | NULL    |       |
+| Home_phone   | varchar(15)  | YES  |     | NULL    |       |
+| Address      | varchar(50)  | YES  |     | NULL    |       |
+| Oficce_phone | varchar(15)  | YES  |     | NULL    |       |
+| Age          | int          | NO   |     | NULL    |       |
+| Gps          | decimal(5,2) | NO   |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+7 rows in set (0.0056 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL >
