@@ -1,0 +1,121 @@
+Microsoft Windows [Versión 10.0.26100.5074]
+(c) Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\alex_>mysqlsh
+MySQL Shell 8.0.43
+
+Copyright (c) 2016, 2025, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 16
+Server version: 8.0.43 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use tbd1;
+Default schema set to `tbd1`.
+Fetching global names, object names from `tbd1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd1  SQL > show tables;
++----------------+
+| Tables_in_tbd1 |
++----------------+
+| cliente        |
+| cliente_datos  |
+| customer       |
+| docente        |
+| ficha          |
+| persona        |
+| playeras       |
+| student        |
++----------------+
+8 rows in set (0.0010 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table cursos(Roll_no int not null,name varchar(20), subject varchar(50));
+
+Query OK, 0 rows affected (0.0178 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert to cursos(Roll_no, name subject) values (100, 'Faiz','JAVA'),(101,'Rama','JAVA'),(101,'Rama','C++'),(102,'Hitesh','ANDROID'),(103,'Sultan','C'),(103,'Sultan','C++'),(104,'Mahendra','PHP');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to cursos(Roll_no, name subject) values (100, 'Faiz','JAVA'),(101,'Rama','JAVA')' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert to cursos(Roll_no, name, subject) values (100, 'Faiz','JAVA'),(101,'Rama','JAVA'),(101,'Rama','C++'),(102,'Hitesh','ANDROID'),(103,'Sultan','C'),(103,'Sultan','C++'),(104,'Mahendra','PHP');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to cursos(Roll_no, name, subject) values (100, 'Faiz','JAVA'),(101,'Rama','JAVA'' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert to cursos(Roll_no, name, subject) value (100, 'Faiz','JAVA');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to cursos(Roll_no, name, subject) value (100, 'Faiz','JAVA')' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert to cursos (Roll_no, name, subject) values (100, 'Faiz','JAVA'),(101,'Rama','JAVA'),(101,'Rama','C++'),(102,'Hitesh','ANDROID'),(103,'Sultan','C'),(103,'Sultan','C++'),(104,'Mahendra','PHP');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to cursos (Roll_no, name, subject) values (100, 'Faiz','JAVA'),(101,'Rama','JAVA' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into cursos (Roll_no, name, subject) values (100, 'Faiz','JAVA'),(101,'Rama','JAVA'),(101,'Rama','C++'),(102,'Hitesh','ANDROID'),(103,'Sultan','C'),(103,'Sultan','C++'),(104,'Mahendra','PHP');
+Query OK, 7 rows affected (0.0087 sec)
+
+Records: 7  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > desc cursos;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Roll_no | int         | NO   |     | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| subject | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > select * from cursos;
++---------+----------+---------+
+| Roll_no | name     | subject |
++---------+----------+---------+
+|     100 | Faiz     | JAVA    |
+|     101 | Rama     | JAVA    |
+|     101 | Rama     | C++     |
+|     102 | Hitesh   | ANDROID |
+|     103 | Sultan   | C       |
+|     103 | Sultan   | C++     |
+|     104 | Mahendra | PHP     |
++---------+----------+---------+
+7 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table students (IDst int not null, LastName varchar(30) not null,IDprof int not null);
+Query OK, 0 rows affected (0.0180 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > inser into stundents (idst, lastname, idprof)
+                                     -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inser into stundents (idst, lastname, idprof)' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into stundents (idst, lastname, idprof) values (1,'Mueller',3),(2,'Meier',2),(3,'Tobler',1);
+ERROR: 1146 (42S02): Table 'tbd1.stundents' doesn't exist
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into students (idst, lastname, idprof) values (1,'Mueller',3),(2,'Meier',2),(3,'Tobler',1);
+Query OK, 3 rows affected (0.0074 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table Prof (IDprof int not null,prof varchar(30) not null);
+Query OK, 0 rows affected (0.0162 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into Prof (idprof,prof) values (3,'Sehmid'),(2,'Borner'),(1,'Bernasconi');
+Query OK, 3 rows affected (0.0050 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > alter table students column Grade is not null;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'column Grade is not null' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > alter table students column Grade not null;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'column Grade not null' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > alter table students column Grade;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'column Grade' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL >  alter table students modify column Grade int not null;
+ERROR: 1054 (42S22): Unknown column 'Grade' in 'students'
+ MySQL  localhost:3306 ssl  tbd1  SQL > alter table students add column Grade int not null;
+Query OK, 0 rows affected (0.0178 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > UPDATE students SET Grade = 4 WHERE IDst = 2;
+Query OK, 1 row affected (0.0070 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > UPDATE students SET Grade = 6 WHERE IDst = 3;
+Query OK, 1 row affected (0.0029 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > select * from students;
++------+----------+--------+-------+
+| IDst | LastName | IDprof | Grade |
++------+----------+--------+-------+
+|    1 | Mueller  |      3 |     5 |
+|    2 | Meier    |      2 |     4 |
+|    3 | Tobler   |      1 |     6 |
++------+----------+--------+-------+
+3 rows in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL >
