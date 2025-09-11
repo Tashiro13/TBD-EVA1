@@ -1,0 +1,182 @@
+Microsoft Windows [Versión 10.0.26100.5074]
+(c) Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\alex_>mysqlsh
+MySQL Shell 8.0.43
+
+Copyright (c) 2016, 2025, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.43 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use tbd1;
+Default schema set to `tbd1`.
+Fetching global names, object names from `tbd1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd1  SQL > show tables;
++----------------+
+| Tables_in_tbd1 |
++----------------+
+| cliente        |
+| cliente_datos  |
+| cursos         |
+| customer       |
+| docente        |
+| ficha          |
+| persona        |
+| playeras       |
+| prof           |
+| student        |
+| students       |
++----------------+
+11 rows in set (0.0051 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table cust (cust_id int, cust_name varchar(30), cust_address varchar(50));
+Query OK, 0 rows affected (0.0203 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table order (order_id int, order_date date);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order (order_id int, order_date date)' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table order (order_id int, order_date datetime);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order (order_id int, order_date datetime)' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table order (order_id int, order_date date not null);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order (order_id int, order_date date not null)' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table order (order_id int, order_dat date );
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order (order_id int, order_dat date )' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table orders (order_id int, order_date date );
+Query OK, 0 rows affected (0.0401 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table cust (cust_id, cust_name) values (2,'Values Furniture'), (6,'Furniture');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', cust_name) values (2,'Values Furniture'), (6,'Furniture')' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into cust (cust_id, cust_name) values (2,'Values Furniture'), (6,'Furniture');
+Query OK, 2 rows affected (0.0172 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > update cust ser cust_address = 'Plano,TX' where cust_id = 2;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cust_address = 'Plano,TX' where cust_id = 2' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > update cust set cust_address = 'Plano,TX' where cust_id = 2;
+Query OK, 1 row affected (0.0075 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > update cust set cust_address = 'Bouler,CO' where cust_id = 6;
+Query OK, 1 row affected (0.0355 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into orders (order_id int, order_date date ) values (1006,"2004-10-24"),(1007,"2004-10-25"),(1008,"2004-11-1");
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int, order_date date ) values (1006,"2004-10-24"),(1007,"2004-10-25"),(1008,"200' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into orders (order_id, order_date) values (1006,"2004-10-24"),(1007,"2004-10-25"),(1008,"2004-11-1");
+Query OK, 3 rows affected (0.0372 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > alter table orders add column cust_id int not null;
+Query OK, 0 rows affected (0.0590 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > update orders set cust_id = 2 where order_id = 1006;
+Query OK, 1 row affected (0.0366 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > update orders set cust_id = 2 where order_id = 1008;
+Query OK, 1 row affected (0.0355 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > update orders set cust_id = 6 where order_id = 1007;
+Query OK, 1 row affected (0.0368 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > select * from orders;
++----------+------------+---------+
+| order_id | order_date | cust_id |
++----------+------------+---------+
+|     1006 | 2004-10-24 |       2 |
+|     1007 | 2004-10-25 |       6 |
+|     1008 | 2004-11-01 |       2 |
++----------+------------+---------+
+3 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > select * from cust;
++---------+------------------+--------------+
+| cust_id | cust_name        | cust_address |
++---------+------------------+--------------+
+|       2 | Values Furniture | Plano,TX     |
+|       6 | Furniture        | Bouler,CO    |
++---------+------------------+--------------+
+2 rows in set (0.0010 sec)
+  MySQL  localhost:3306 ssl  tbd1  SQL > create table employees (employee_id varchar(50), name varchar (50), state_code int, home_state varchar(50));
+Query OK, 0 rows affected (0.0498 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table jobs (job_code varchar(50), job varchar (50));
+Query OK, 0 rows affected (0.0391 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > alter table employees add column job_code varchar(50);
+Query OK, 0 rows affected (0.4339 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > alter table employees drop column job_code;
+Query OK, 0 rows affected (0.1115 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into employees (employee_id, name, state_code) values ('E001','Alice',26),('E002','Bob',56),('E003','Alice',56);
+Query OK, 3 rows affected (0.0388 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > alter table employees drop column home_state;
+Query OK, 0 rows affected (0.0564 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > select
+                                     -> * form employees
+                                     -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'form employees' at line 2
+ MySQL  localhost:3306 ssl  tbd1  SQL > select  * from employees ;
++-------------+-------+------------+
+| employee_id | name  | state_code |
++-------------+-------+------------+
+| E001        | Alice |         26 |
+| E002        | Bob   |         56 |
+| E003        | Alice |         56 |
++-------------+-------+------------+
+3 rows in set (0.0012 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into jobs (job_code, job) values ('J01','Chef'), ('J02','Waiter'),('J03','Bartender');
+Query OK, 3 rows affected (0.0393 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table state (state_code, home_state)
+                                     -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', home_state)' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table state (state_code varchar(20), home_state varchar(50)) ;
+Query OK, 0 rows affected (0.0371 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into state() values ('26','Michigan'),('56','Wyoming');
+Query OK, 2 rows affected (0.0082 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table employee_job(employee_id varchar(20), job_code varchar(30));
+Query OK, 0 rows affected (0.0677 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into employee_job () values('E001','J01'),('E001','J02'),('E002','J02'),('E002','J03'), ('E003','J01');
+Query OK, 5 rows affected (0.0379 sec)
+
+Records: 5  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > show tables;
++----------------+
+| Tables_in_tbd1 |
++----------------+
+| cliente        |
+| cliente_datos  |
+| cursos         |
+| cust           |
+| customer       |
+| docente        |
+| employee_job   |
+| employees      |
+| ficha          |
+| jobs           |
+| orders         |
+| persona        |
+| playeras       |
+| prof           |
+| state          |
+| student        |
+| students       |
++----------------+
+17 rows in set (0.0040 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL >
